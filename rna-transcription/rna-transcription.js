@@ -7,7 +7,7 @@ const dnaToRna = {
 
 function DnaTranscriber () {};
 
-var translate = function (nucleotide) {
+var translateNucleotide = function (nucleotide) {
   if (nucleotide in dnaToRna) {
     return dnaToRna[nucleotide]
   } else {
@@ -16,7 +16,7 @@ var translate = function (nucleotide) {
 }
 
 DnaTranscriber.prototype.toRna = function(dnaStrand) {
-  return dnaStrand.split('').map(translate).join('');
+  return dnaStrand.split('').map(translateNucleotide).join('');
 }
 
 module.exports = DnaTranscriber;
