@@ -1,35 +1,39 @@
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
 
-function generateNumber (min, max) {
-  var randNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-  if (randNumber === max) {
-    randNumber = generateNumber(min, max);
-  }
-  return randNumber;
+function generateNumber(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function numberToLetter (min, max) { 
+function numberToLetter(min, max) { 
   return alphabet[generateNumber(min, max)];
 }
 
-function generateRandomKey (min, max, len) {
-  var key = '';
-  while (key.length < len + 1) {
-    key += numberToLetter(min, max);
+function generateRandomKey(len, i) {
+  var randomKey = Array(len).join('a').split('')
+
+  function randomize(i) {
+    if (i = randomKey.length) {
+      return;
+    };
+
+    randomKey[i] = numberToLetter(0, 26);
+    return generateRandomKey(i+1)
   }
-  return key;
+
+  return randomKey.join('')
 };
 
-function verifyBadKey (key) { 
+function verifyBadKey(key) { 
   return (!/^[a-z]+$/.test(key));
 };
 
-function _throw (msg) {throw new Error(msg)};
-
-function Cipher (key) {
-  verifyBadKey(key) ? _throw('Bad key') : this.key = key || generateRandomKey(0, 26, 100);
+function Cipher(key) {
+  if (verifyBadKey(key)) {
+    throw new Error('Bad key');
+  } else {
+    this.key = key || generateRandomKey(100, 0);
+  }
 };
-
 
 Cipher.prototype.encode = function(input) {
   return input.split('').map((letter, index) => {
