@@ -1,12 +1,9 @@
-function Gigasecond(currentDate) {
-  this.currentDate = currentDate;
+function Gigasecond(birthDate) {
+  this.birthDate = Date.parse(birthDate);
 };
 
 Gigasecond.prototype.date = function() {
-  const gigasec = 1000000000;
-  var inputDate = new Date(this.currentDate.getTime());
-  inputDate.setUTCSeconds(this.currentDate.getUTCSeconds() + gigasec)
-  return inputDate;
+  return new Date(this.birthDate + 1e12);
 }
 
 module.exports = Gigasecond;
