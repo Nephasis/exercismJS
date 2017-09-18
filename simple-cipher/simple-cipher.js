@@ -32,21 +32,21 @@ function Cipher(key) {
 
 Cipher.prototype.encode = function(input) {
   return input.split('').map((letter, index) => {
-      var keyNumber = alphabet.indexOf(this.key[index]),
-          letterIndex = alphabet.indexOf(letter),
-          newIndex = letterIndex + keyNumber;
-      letterIndex + keyNumber > 25 ? newIndex -= 26 : newIndex;
-      return alphabet[newIndex];
+    var keyNumber = alphabet.indexOf(this.key[index]),
+        letterIndex = alphabet.indexOf(letter),
+        newIndex = letterIndex + keyNumber;
+    letterIndex + keyNumber > 25 ? newIndex -= 26 : newIndex;
+    return alphabet[newIndex];
   }).join('');
 };
   
 Cipher.prototype.decode = function(input) {
   return input.split('').map((letter, index) => {
-      var keyNumber = alphabet.indexOf(this.key[index]),
-          letterIndex = alphabet.indexOf(letter),
-          newIndex = letterIndex - keyNumber;
-      letterIndex - keyNumber < 0 ? newIndex += 26 : newIndex;
-      return alphabet[newIndex];
+    var keyNumber = alphabet.indexOf(this.key[index]),
+        letterIndex = alphabet.indexOf(letter),
+        newIndex = letterIndex - keyNumber;
+    letterIndex - keyNumber < 0 ? newIndex += 26 : newIndex;
+    return alphabet[newIndex];
   }).join('');
 };
 
