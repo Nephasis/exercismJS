@@ -1,27 +1,22 @@
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
 
-function generateNumber(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+function randomNumberFromMinToMax(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) + min)   
 }
 
-function numberToLetter(min, max) { 
-  return alphabet[generateNumber(min, max)];
+function randomLetter() {
+  let shift = 9;
+  let number = randomNumberFromMinToMax(1, 25) + shift;
+  return number.toString(36);
 }
 
-function generateRandomKey(len, i) {
-  var randomKey = Array(len).join('a').split('')
-
-  function randomize(i) {
-    if (i = randomKey.length) {
-      return;
-    };
-
-    randomKey[i] = numberToLetter(0, 26);
-    return generateRandomKey(i+1)
+function randomKey(length = 100, list = []) {
+  debugger;
+  if (length === list.length) {
+    return list.join('');
   }
-
-  return randomKey.join('')
-};
+  return randomKey(length, [...list, randomLetter()]);
+}
 
 function verifyBadKey(key) { 
   return (!/^[a-z]+$/.test(key));
@@ -31,7 +26,7 @@ function Cipher(key) {
   if (verifyBadKey(key)) {
     throw new Error('Bad key');
   } else {
-    this.key = key || generateRandomKey(100, 0);
+    this.key = key || randomKey();
   }
 };
 
