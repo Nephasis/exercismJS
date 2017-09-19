@@ -1,15 +1,18 @@
 const alphabet = "abcdefghijklmnopqrstuvwxyz".split('');
 
-function Pangram(sentence) {
-  this.sentence = sentence.toLowerCase();
+function Pangram(input) {
+  let sentenceToCheck = input.toLowerCase()
+  return {
+    isPangram: function() {
+      return alphabet.every(isInSentence(sentenceToCheck));
+    }
+  }
 };
 
-function isInSentence(letter) {
-  return this.indexOf(letter) >= 0;
-};
-
-Pangram.prototype.isPangram = function() {
-  return alphabet.every(isInSentence, this.sentence);
+function isInSentence(sentence) {
+  return (letter) => {
+    return sentence.indexOf(letter) >= 0;
+  }
 }
 
 module.exports = Pangram ;
