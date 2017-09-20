@@ -10,12 +10,11 @@ function randomLetter() {
   return number.toString(36);
 }
 
-function randomKey(length = 100, list = []) {
-  debugger;
+function randomKey(elementGenerator, length = 100, list = []) {
   if (length === list.length) {
     return list.join('');
   }
-  return randomKey(length, [...list, randomLetter()]);
+  return randomKey(elementGenerator, length, [...list, elementGenerator()]);
 }
 
 function verifyBadKey(key) { 
@@ -26,7 +25,7 @@ function Cipher(key) {
   if (verifyBadKey(key)) {
     throw new Error('Bad key');
   } else {
-    this.key = key || randomKey();
+    this.key = key || randomKey(randomLetter);
   }
 };
 
